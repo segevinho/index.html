@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Alchemist - Luxury Mirror 1:1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Heebo:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Heebo', sans-serif; background-color: #050505; color: white; margin: 0; }
+        .font-serif-display { font-family: 'Cinzel', serif; }
+        
+        .gold-gradient-text {
+            background: linear-gradient(to bottom, #fcf6ba, #bf953f, #b38728, #fbf5b7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* אפקט זהב חזק יותר לכותרת */
+        .gold-text-strong {
+            background: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine-text 3s linear infinite;
+        }
+        
+        @keyframes shine-text {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .logo-circle-outer { border: 1px solid rgba(180, 136, 17, 0.3); }
+        .logo-circle-inner { border: 2px solid #ebd197; box-shadow: 0 0 10px rgba(235, 209, 151, 0.2); }
+
+        /* אנימציית נצנוץ לתווית המחיר */
+        @keyframes twinkle {
+            0%, 100% { 
+                filter: brightness(1) drop-shadow(0 0 2px rgba(180, 136, 17, 0.4));
+                transform: scale(1);
+            }
+            50% { 
+                filter: brightness(1.4) drop-shadow(0 0 12px rgba(235, 209, 151, 0.9));
+                transform: scale(1.05);
+            }
+        }
+        .twinkle-badge {
+            animation: twinkle 2s infinite ease-in-out;
+            background: linear-gradient(135deg, #b48811 0%, #ebd197 100%);
+            color: black;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-top: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        @keyframes shine {
+            from { left: -100%; }
+            to { left: 200%; }
+        }
+        .animate-shine { animation: shine 3.5s infinite; }
+
+        .glass-panel {
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(180, 136, 17, 0.1);
+        }
+
+        /* Wizard Specific Styles */
+        .wizard-overlay {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+        }
+        
+        .option-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(180, 136, 17, 0.2);
+            transition: all 0.3s ease;
+        }
+        .option-btn:hover, .option-btn.selected {
+            background: rgba(180, 136, 17, 0.2);
+            border-color: #ebd197;
+            transform: translateY(-2px);
+        }
+
+        /* אנימציה למעבר שמות המותגים */
+        #brand-ticker {
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+        }
+        .ticker-fade {
+            opacity: 0;
+            transform: translateY(5px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-0 md:p-4 bg-[#050505]">
+
+    <div class="max-w-md w-full bg-black min-h-screen md:min-h-0 md:rounded-sm border-x border-neutral-900 shadow-2xl relative overflow-hidden flex flex-col">
+        
+        <!-- רקע כוכבים עדין -->
+        <div class="absolute inset-0 z-0 pointer-events-none opacity-10">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+        </div>
+
+        <!-- כפתור "שאל את האלכימאי" צף (Sticky Button) -->
+        <div class="absolute top-4 right-4 z-40">
+             <button onclick="openWizard()" class="flex items-center gap-2 bg-neutral-900/90 backdrop-blur border border-[#b48811] px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(180,136,17,0.3)] animate-pulse hover:bg-[#b48811]/20 transition-all cursor-pointer">
+                <span class="text-xl">🧪</span>
+                <span class="text-[10px] text-[#ebd197] font-bold tracking-wider">התאמת בושם אישית</span>
+             </button>
+        </div>
+
+        <div class="relative z-10 flex flex-col h-full flex-grow overflow-y-auto pb-20 scrollbar-hide">
+            
+            <!-- אזור כותרת ולוגו - הגדלתי את ה-padding top כדי למנוע התנגשות -->
+            <header class="pt-16 pb-4 text-center relative z-20">
+                <div class="w-20 h-20 mx-auto relative mb-3">
+                    <div class="absolute inset-0 rounded-full logo-circle-outer"></div>
+                    <div class="absolute inset-1 rounded-full logo-circle-inner bg-black flex items-center justify-center">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ebd197">
+                             <path d="M12 21C16 21 19 18 19 14C19 11 17 9 17 9H7C7 9 5 11 5 14C5 18 8 21 12 21Z" stroke-width="1.2" />
+                            <path d="M10 4H14M12 4V7" stroke-width="1.2"/>
+                            <text x="12" y="17" font-family="serif" font-size="7" text-anchor="middle" fill="#ebd197" stroke="none">A</text>
+                        </svg>
+                    </div>
+                </div>
+                
+                <h1 class="font-serif-display text-2xl text-[#ebd197] tracking-[0.2em] mb-1">THE ALCHEMIST</h1>
+                <p class="text-[0.6rem] text-[#886e26] uppercase tracking-[0.4em]">Magical Fragrances</p>
+
+                <!-- כותרת מעודכנת -->
+                <div class="px-6 mt-4">
+                    <p class="text-base font-light text-white leading-snug">
+                        מבחר רחב של בשמים <span class="text-[#ebd197] font-medium">לנשים ולגברים</span>
+                        <br>
+                        <span class="text-sm opacity-90 block mt-1">בהזמנה אישית מהספק שלנו בחו״ל</span>
+                        <span class="block mt-2 font-serif-display gold-text-strong text-2xl font-bold tracking-wider leading-none">
+                            איכות 1:1 MIRROR מושלמת
+                        </span>
+                    </p>
+                </div>
+            </header>
+
+            <!-- הסבר שיווקי מלא -->
+            <div class="px-6 pb-2 relative z-20 mt-2">
+                <div class="glass-panel p-4 rounded-sm border-t border-b border-[#b48811]/20">
+                    <h3 class="text-[#ebd197] text-xs font-bold uppercase tracking-widest mb-3 border-b border-neutral-800 pb-1">מה זה אומר בפועל?</h3>
+                    
+                    <ul class="space-y-2 text-[11px] sm:text-xs text-gray-200">
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-0.5">✔️</span> <span><strong>ריח זהה</strong> – עבר השוואה ומבחן מולקולרי</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-0.5">✔️</span> <span><strong>בקבוק זהה למקור</strong></span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-0.5">✔️</span> <span><strong>מארז זהה</strong> – נראה יוקרה, מרגיש יוקרה</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <div class="flex flex-col">
+                                <span class="flex items-center gap-2"><span class="text-green-500">✔️</span> <strong>עמידות חזקה</strong> שמורגשת שעות</span>
+                                <span class="text-[9px] opacity-60 mt-0.5 mr-6 leading-tight">(כמו בכל בושם, העמידות עשויה להשתנות מאדם לאדם בהתאם לכימיית העור שלו)</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-0.5">✔️</span> <span>בלי לשלם אלפי שקלים</span>
+                        </li>
+                    </ul>
+                    
+                    <!-- טקסט תחתון -->
+                    <p class="mt-4 text-[10px] sm:text-[11px] leading-relaxed italic text-[#ebd197]/80">
+                        אם תשימו את זה ליד בושם של 2,000 ₪ — אף אחד לא ידע להבדיל. 
+                        <span class="text-white not-italic font-bold">חוץ מהארנק שלך.</span>
+                    </p>
+
+                    <!-- קריאה לפעולה פנימית -->
+                    <div class="mt-4 p-3 bg-[#b48811]/10 border border-[#b48811]/30 rounded text-center cursor-pointer hover:bg-[#b48811]/20 transition" onclick="openWizard()">
+                        <p class="text-[#ebd197] font-bold text-xs">מתלבטים? בואו נבדוק ביחד</p>
+                        <p class="text-[10px] text-gray-300">לחצו כאן למבחן האלכימאי 🧪</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- אזור התמונה -->
+            <div class="relative w-full h-64 overflow-hidden border-y border-neutral-900 bg-neutral-950 flex items-center justify-center my-2">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40 z-10 pointer-events-none"></div>
+                <img src="https://images.unsplash.com/photo-1592914610354-fd354ea45e48?q=80&w=1000&auto=format&fit=crop" 
+                     alt="Luxury Perfume" 
+                     class="relative z-20 h-[90%] w-auto object-contain drop-shadow-[0_0_25px_rgba(180,136,17,0.4)]">
+            </div>
+
+            <!-- שורת מותגים -->
+            <div class="py-3 bg-neutral-900/40 border-b border-neutral-800 text-center relative z-20">
+                <span class="text-[8px] text-[#886e26] uppercase tracking-[0.3em] block mb-1 font-bold">Available Brands</span>
+                <div id="brand-ticker" class="font-serif-display text-[#ebd197] text-sm tracking-widest font-bold uppercase">
+                    Creed
+                </div>
+            </div>
+
+            <!-- מחירון -->
+            <div class="px-6 relative z-30 mt-4 pb-24">
+                <div class="bg-neutral-900/60 backdrop-blur-md border border-neutral-800 p-5 rounded-sm shadow-2xl">
+                    <div class="flex items-center justify-between border-b border-neutral-800/50 pb-2 mb-3">
+                        <span class="text-gray-400 text-xs font-medium">בושם יחיד</span>
+                        <span class="font-serif-display text-white text-lg">₪299</span>
+                    </div>
+                    <div class="flex items-center justify-between border-b border-neutral-800/50 pb-2 mb-3">
+                        <span class="text-gray-300 text-xs font-medium">זוג בשמים</span>
+                        <span class="font-serif-display text-[#f3e5ab] text-xl">₪499</span>
+                    </div>
+                    <div class="flex items-start justify-between pt-1">
+                        <div class="flex flex-col">
+                            <span class="text-white text-lg font-bold">שלישייה</span>
+                            <span class="text-[9px] text-[#b48811] uppercase font-bold tracking-wider">הכי משתלם</span>
+                        </div>
+                        <div class="flex flex-col items-end">
+                             <span class="font-serif-display gold-gradient-text text-4xl font-bold leading-none">₪589</span>
+                             <div class="twinkle-badge">רק 196 ₪ לבושם!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- כפתור תחתון קבוע -->
+        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black to-transparent z-50">
+            <a href="https://www.instagram.com/parfume_alch?igsh=ZWdmb2t4MmxpMDUy&utm_source=qr" target="_blank" class="group relative w-full flex items-center justify-center py-3.5 overflow-hidden bg-[#ebd197] rounded-sm hover:brightness-110 transition-all shadow-xl">
+                <div class="flex items-center gap-2 relative z-10 text-black">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <span class="font-bold text-xs tracking-widest">להזמנות באינסטגרם</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- ==================== WIZARD OVERLAY ==================== -->
+        <div id="wizard-modal" class="hidden fixed inset-0 z-[100] wizard-overlay flex flex-col items-center justify-center p-6 text-center">
+            
+            <button onclick="closeWizard()" class="absolute top-6 right-6 text-gray-500 hover:text-white">✕ סגור</button>
+
+            <div class="max-w-xs w-full">
+                <!-- אייקון מתחלף -->
+                <div class="text-4xl mb-6 animate-bounce">🧪</div>
+                
+                <!-- Step 1: Gender -->
+                <div id="step-1" class="wizard-step">
+                    <h3 class="text-[#ebd197] font-serif-display text-xl mb-6">עבור מי הבושם?</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="setGender('man')" class="option-btn p-4 rounded-lg flex flex-col items-center gap-2">
+                            <span class="text-2xl">👨</span>
+                            <span class="text-sm font-bold">גבר</span>
+                        </button>
+                        <button onclick="setGender('woman')" class="option-btn p-4 rounded-lg flex flex-col items-center gap-2">
+                            <span class="text-2xl">👩</span>
+                            <span class="text-sm font-bold">אישה</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Season -->
+                <div id="step-2" class="wizard-step hidden">
+                    <h3 class="text-[#ebd197] font-serif-display text-xl mb-6">לאיזו עונה?</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="setSeason('summer')" class="option-btn p-3 rounded-lg"><span class="block text-xl mb-1">☀️</span>קיץ</button>
+                        <button onclick="setSeason('winter')" class="option-btn p-3 rounded-lg"><span class="block text-xl mb-1">❄️</span>חורף</button>
+                        <button onclick="setSeason('autumn')" class="option-btn p-3 rounded-lg"><span class="block text-xl mb-1">🍂</span>סתיו</button>
+                        <button onclick="setSeason('spring')" class="option-btn p-3 rounded-lg"><span class="block text-xl mb-1">🌸</span>אביב</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Occasion -->
+                <div id="step-3" class="wizard-step hidden">
+                    <h3 class="text-[#ebd197] font-serif-display text-xl mb-6">מה המטרה העיקרית?</h3>
+                    <div class="flex flex-col gap-2 text-right">
+                        <button onclick="setOccasion('daily')" class="option-btn p-3 rounded-lg flex items-center gap-3">
+                            <span>💼</span> ליום יום / עבודה
+                        </button>
+                        <button onclick="setOccasion('gym')" class="option-btn p-3 rounded-lg flex items-center gap-3">
+                            <span>🏋️</span> חדר כושר / ספורט
+                        </button>
+                        <button onclick="setOccasion('date')" class="option-btn p-3 rounded-lg flex items-center gap-3">
+                            <span>🍷</span> דייט רומנטי
+                        </button>
+                        <button onclick="setOccasion('luxury')" class="option-btn p-3 rounded-lg flex items-center gap-3">
+                            <span>💎</span> אירוע יוקרתי / ערב
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Loading -->
+                <div id="step-loading" class="wizard-step hidden">
+                    <h3 class="text-[#ebd197] font-serif-display text-lg mb-2">האלכימאי רוקח את התשובה...</h3>
+                    <div class="w-full bg-gray-800 rounded-full h-1.5 mb-4 overflow-hidden">
+                        <div class="bg-[#ebd197] h-1.5 rounded-full animate-shine relative w-full"></div>
+                    </div>
+                    <p class="text-xs text-gray-400 italic">מנתח את תווי הריח המתאימים...</p>
+                </div>
+
+                <!-- Step 5: Result -->
+                <div id="step-result" class="wizard-step hidden">
+                    <p class="text-gray-400 text-xs uppercase tracking-widest mb-2">ההתאמה המושלמת שלך היא:</p>
+                    
+                    <div class="border border-[#b48811] bg-black/50 p-6 rounded-sm relative overflow-hidden mb-6">
+                        <div class="absolute -top-10 -left-10 w-20 h-20 bg-[#b48811] blur-[50px] opacity-20"></div>
+                        
+                        <h2 id="result-name" class="font-serif-display text-2xl text-[#ebd197] mb-2 leading-none"></h2>
+                        <p id="result-brand" class="text-[#886e26] text-xs font-bold uppercase tracking-widest mb-4"></p>
+                        
+                        <p id="result-desc" class="text-sm text-gray-200 leading-relaxed font-light border-t border-gray-800 pt-3"></p>
+                    </div>
+
+                    <!-- כפתור אינסטגרם מעודכן בתוך הוויזארד -->
+                    <a href="https://www.instagram.com/parfume_alch?igsh=ZWdmb2t4MmxpMDUy&utm_source=qr" target="_blank" class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#ebd197] to-[#b48811] text-black font-bold py-3.5 rounded-sm hover:brightness-110 shadow-[0_0_15px_rgba(180,136,17,0.4)] transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        לפרטים והזמנות באינסטגרם
+                    </a>
+                    
+                    <button onclick="resetWizard()" class="mt-4 text-xs text-gray-500 underline">התחל מחדש</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Ticker Logic
+        const brands = ["Creed", "Parfums de Marly", "Louis Vuitton", "Gucci", "Byredo", "Tom Ford", "Baccarat Rouge", "Xerjoff", "Maison Francis Kurkdjian", "ועוד מבחר ענק..."];
+        let currentBrandIndex = 0;
+        const tickerElement = document.getElementById('brand-ticker');
+
+        function updateTicker() {
+            tickerElement.classList.add('ticker-fade');
+            setTimeout(() => {
+                currentBrandIndex = (currentBrandIndex + 1) % brands.length;
+                tickerElement.innerText = brands[currentBrandIndex];
+                tickerElement.classList.remove('ticker-fade');
+            }, 600);
+        }
+        setInterval(updateTicker, 2500);
+
+        // ================= WIZARD LOGIC =================
+        let selections = {
+            gender: '',
+            season: '',
+            occasion: ''
+        };
+
+        function openWizard() {
+            document.getElementById('wizard-modal').classList.remove('hidden');
+            resetWizard();
+        }
+
+        function closeWizard() {
+            document.getElementById('wizard-modal').classList.add('hidden');
+        }
+
+        function resetWizard() {
+            selections = { gender: '', season: '', occasion: '' };
+            document.getElementById('step-1').classList.remove('hidden');
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.add('hidden');
+            document.getElementById('step-result').classList.add('hidden');
+            document.getElementById('step-loading').classList.add('hidden');
+        }
+
+        function setGender(val) {
+            selections.gender = val;
+            nextStep('step-1', 'step-2');
+        }
+
+        function setSeason(val) {
+            selections.season = val;
+            nextStep('step-2', 'step-3');
+        }
+
+        function setOccasion(val) {
+            selections.occasion = val;
+            nextStep('step-3', 'step-loading');
+            
+            // Fake loading time for "Calculation"
+            setTimeout(() => {
+                calculateResult();
+                nextStep('step-loading', 'step-result');
+            }, 1800);
+        }
+
+        function nextStep(current, next) {
+            document.getElementById(current).classList.add('hidden');
+            document.getElementById(next).classList.remove('hidden');
+        }
+
+        // === The Brain ===
+        function calculateResult() {
+            const { gender, season, occasion } = selections;
+            let result = { name: "Creed Aventus", brand: "CREED", desc: "הבחירה הקלאסית והבטוחה." };
+
+            // Logic Tree
+            if (gender === 'man') {
+                if (occasion === 'gym') {
+                    result = { name: "Versace Eros", brand: "VERSACE", desc: "רענן, אנרגטי ודומיננטי. מושלם לאימון כשצריך משהו חד שיתגבר על הזיעה." };
+                    if (season === 'summer') result = { name: "Dior Sauvage EDT", brand: "DIOR", desc: "רעננות מתפרצת של פלפל וברגמוט. חד, נקי ומחזיק גם בחום." };
+                } 
+                else if (occasion === 'date') {
+                    if (season === 'winter' || season === 'autumn') {
+                        result = { name: "Layton", brand: "PARFUMS DE MARLY", desc: "שילוב משכר של וניל, תפוח ותבלינים. זהו 'מגנט מחמאות' מוכח לדייטים." };
+                    } else {
+                        result = { name: "Bleu de Chanel Parfum", brand: "CHANEL", desc: "עצי, ארומטי ומאוד אלגנטי. משדר גבריות בטוחה בעצמה בלי להתאמץ." };
+                    }
+                }
+                else if (occasion === 'luxury') {
+                     result = { name: "Oud Wood", brand: "TOM FORD", desc: "יוקרתי, נדיר ומסתורי. תווי עץ העוד משדרים מעמד וסטייל שאי אפשר להתעלם מהם." };
+                     if (season === 'summer') result = { name: "Creed Aventus", brand: "CREED", desc: "המלך הבלתי מעורער. אננס מעושן שמשדר הצלחה וכוח בכל מזג אוויר." };
+                }
+                else { // Daily / Work
+                    if (season === 'summer') {
+                        result = { name: "Imagination", brand: "LOUIS VUITTON", desc: "ריח של סבון יוקרתי ונקיון אינסופי. מושלם למשרד הישראלי החם." };
+                    } else {
+                        result = { name: "Terre d'Hermes", brand: "HERMES", desc: "ניחוח אדמתי, הדרי ובוגר. משדר רצינות ומקצועיות בעבודה." };
+                    }
+                }
+            } 
+            else { // Woman
+                if (occasion === 'gym') {
+                     result = { name: "Light Blue Intense", brand: "DOLCE & GABBANA", desc: "כמו בריזה של ים. לימון רענן שנשאר רענן גם אחרי אימון אינטנסיבי." };
+                }
+                else if (occasion === 'date') {
+                    if (season === 'winter') {
+                        result = { name: "Black Orchid", brand: "TOM FORD", desc: "אפל, סקסי, כבד ומסתורי. בושם שמשאיר שובל שאי אפשר לשכוח." };
+                    } else {
+                        result = { name: "Delina", brand: "PARFUMS DE MARLY", desc: "נשיות בבקבוק. ורדים, ליצ'י ורבס. מתוק, פרחוני ומאוד רומנטי." };
+                    }
+                }
+                else if (occasion === 'luxury') {
+                    result = { name: "Baccarat Rouge 540", brand: "MAISON FRANCIS KURKDJIAN", desc: "הבושם המדובר בעולם. סוכר שרוף, ענבר ויוקרה נוצצת. מתאים במיוחד לאירועי ערב." };
+                }
+                else { // Daily / Work
+                    if (season === 'summer') {
+                        result = { name: "Valaya", brand: "PARFUMS DE MARLY", desc: "כמו כותנה לבנה ונקייה. ניחוח אוורירי, מושקי ועדין שלא יחניק את המשרד." };
+                    } else {
+                        result = { name: "Libre Intense", brand: "YSL", desc: "לבנדר, וניל ופרחי תפוז. משדר אישה עצמאית וחזקה. מושלם ליום יום." };
+                    }
+                }
+            }
+
+            // Update UI
+            document.getElementById('result-name').innerText = result.name;
+            document.getElementById('result-brand').innerText = result.brand;
+            document.getElementById('result-desc').innerText = result.desc;
+        }
+    </script>
+</body>
+</html>
